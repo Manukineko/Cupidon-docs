@@ -5,7 +5,12 @@
 **Cupidon**
 
 -    [API](API)
--    [API](API)
+
+---
+
+**Cupidon Ext**
+
+-    [API Ext](API-Ext)
 
 ---
 
