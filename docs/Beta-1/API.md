@@ -80,6 +80,7 @@ It also has methods to update the anchor position and rotation along the Parabol
 
 
 ## Curve
+     The methods that will set the parabola
 
 **Methods**
 ### `.simple_Parabola(_start_x, _start_y, _distance_h, _distance_v, _height, _isometric)` → *struct*
@@ -145,7 +146,8 @@ Defini an ending point based on a distance and a direction (use `lengthdir` inte
 
 ### `.apex_Height(height, x pos, isometric)` → *struct*
 Define the top height of the parabola (vertex) with a distance. It is **NOT** the control point's height.
-**Shouldn't be use neither with another `apex_*` method nor `apex_Point` as it will change the height calculated by those methods as well**
+
+!> **Shouldn't be use neither with another `apex_*` method nor `apex_Point` as it will change the height calculated by those methods as well**
 
 | Parameter | Datatype  | Purpose |
 |-----------|-----------|---------|
