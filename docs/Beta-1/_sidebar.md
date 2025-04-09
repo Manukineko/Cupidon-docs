@@ -8,9 +8,3 @@
 
 ---
 
-**Cupidon Ext**
-
--    [API Ext](API-Ext)
-
----
-
