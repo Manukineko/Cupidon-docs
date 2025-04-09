@@ -4,5 +4,5 @@ const config = {
   themeColor:"#FFFFFF",
   name:"Cupidon - Wiki",
   latestVersion:"Beta-1",
-  otherVersions:["Beta 1"],
+  otherVersions:["Beta-1"],
 };
