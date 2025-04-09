@@ -1,6 +1,6 @@
 # API
 
-## `Cupidon(_start_x = undefined, _start_y = undefined, _distance_h = 0, _distance_v = 0, _height = 0, _isometric = false, _internal = true, _scope = other)` (*constructor*)
+## `Cupidon(_start_x, _start_y, _distance_h, _distance_v, _height, _isometric, _internal, _scope)` (*constructor*)
 Create a Parabola as a Quadratic Bézier Curve. The parabola has an anchor point with an x and y coordinate as well as an angle to use in order to attach an object or any thing else that can use them.
 It also has methods to update the anchor position and rotation along the Parabola.
 
@@ -79,6 +79,7 @@ It also has methods to update the anchor position and rotation along the Parabol
 
 
 
+## Curve
 
 **Methods**
 ### `.simple_Parabola(_start_x, _start_y, _distance_h, _distance_v, _height, _isometric)` → *struct*
@@ -103,7 +104,7 @@ Define the starting point
 |`_x` |real |x position |
 |`_y` |real |y position |
 
-**Returns:** return self to allow chaining.
+**Returns:** self
 
 ### `.control_Point(x,y)` → *struct*
 Define the control point position (the middle point)
@@ -153,3 +154,65 @@ Define the top height of the parabola (vertex) with a distance. It is **NOT** th
 |`[_isometric]=false` |bool |This modify the height calculation between a kind of ortho view & Isometric view. |
 
 
+
+---
+
+### `.apex_Height_Alt(x pos, y pos)` → *struct*
+Define the top height of the parabola (vertex) with a ratio. Isometric mode isn't supported yet.
+
+!> **Shouldn't be use neither with another `apex_*` method nor `apex_Point` as it will change the height calculated by those methods as well**
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`[_y_ratio]=0.5` |real |vertical ratio (0,1) to stay on the parabola, <0,1<: outside of the parabola. |
+|`[_x_ratio]=0.5` |real |horizontal ratio (0,1) to stay on the parabola, <0,1<: outside of the parabola. |
+
+### `.apex_Coord(x, y)` → *struct*
+Define the top height of the parabola (vertex) with a coordinate. It is **NOT** the control point's coordinate
+**Shouldn't be use neither with another `apex_*` method nor `apex_Point` as it will change the height calculated by those methods as well**
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`_x` |any* |x position |
+|`_y` |any* |y position |
+
+**Returns:** self
+
+### `.curve_Length(precision)` → *ngth*
+Calculate the parabola's length (this is a slow method).
+
+?> I discourage using it each steps
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`[_precision]=100` |real |the precision of the calculation. a higher value means a better precision but at a cost of performance. |
+
+### `.curve_Length_Ext(method, precision)` → *real*
+Calculate the parabola's length using different approaches.
+- 0: Approximation by summing segments.
+- 1: Numerical integration (Simpson's Rule).
+- 2: Analytical formula (if applicable).
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`[_method]=0` |real |Select the calculation method. |
+|`[_precision]=100` |real |The precision level for calculation. Only if the method is set at 0 |
+
+**Returns:** The length of the parabola.
+
+## Anchor
+
+The Anchor is a point whose coordinate are stored in the `x` and `y` variable.
+     They are automatically updated when calling `anchor_Motion` and you retrieve those like this:
+```gml
+     // Instance step event
+     x = myCupidon.x
+     y = myCupidon.y
+```
+
+### `.anchor_Set(position)` → *struct*
+Set the internal point's `x` and `y` on the parabola.
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`_position` |real |the position on the parabola. Between 0 (start point) and 1 (end point). A negative value is before the start point and a value superior to 1 is after the end point. |
