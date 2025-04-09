@@ -218,3 +218,129 @@ Set the internal point's `x` and `y` on the parabola.
 | Parameter | Datatype  | Purpose |
 |-----------|-----------|---------|
 |`_position` |real |the position on the parabola. Between 0 (start point) and 1 (end point). A negative value is before the start point and a value superior to 1 is after the end point. |
+
+### `.anchor_Motion([_on_end])` → {rv}
+Update the tracking point's coordinate on the parabola. This method is to be call each frame to be fully exploited.
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`[_on_end]=false` |bool |Trigger the callback when the end of the parabola is reached. |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### `.anchor_Rotate()` → {rv}
+Rotate the point. Should be called in the step event.
+
+---
+
+### `.anchor_Orient()` → {rv}
+set the angle of the anchor point to the tangent of the parabola at its current position.
+This method updates the angle based on the motion ratio (position), ensuring the tracker maintains a natural orientation along the parabola.
+
+---
+
+### `.anchor_Speed(_speed, [_motion_unit])` → {rv}
+the speed of the tracking point on the parabola (from the starting point to the ending point). it can be a Time, a Ratio or Steps. The method also calculate a basic rotation_rate
