@@ -1,6 +1,6 @@
 # API
 
-## `Cupidon(_start_x, _start_y, _distance_h, _distance_v, _height, _isometric, _internal, _scope)` (*constructor*)
+## `Cupidon([_start_x], [_start_y], [_distance_h], [_distance_v], [_height], [_isometric], [_internal], [_scope])` (*constructor*)
 Create a Parabola as a Quadratic Bézier Curve. The parabola has an anchor point with an x and y coordinate as well as an angle to use in order to attach an object or any thing else that can use them.
 It also has methods to update the anchor position and rotation along the Parabola.
 
@@ -83,7 +83,7 @@ It also has methods to update the anchor position and rotation along the Parabol
      The methods that will set the parabola
 
 **Methods**
-### `.simple_Parabola(_start_x, _start_y, _distance_h, _distance_v, _height, _isometric)` → *struct*
+### `.simple_Parabola(_start_x, _start_y, [_distance_h], [_distance_v], [_height], [_isometric])` → *struct*
 Create a simple parabola (mimicing parametric equations) with default values
 
 | Parameter | Datatype  | Purpose |
@@ -144,7 +144,7 @@ Defini an ending point based on a distance and a direction (use `lengthdir` inte
 
 **Returns:** self
 
-### `.apex_Height(height, x pos, isometric)` → *struct*
+### `.apex_Height(height, [x pos], [isometric])` → *struct*
 Define the top height of the parabola (vertex) with a distance. It is **NOT** the control point's height.
 
 !> **Shouldn't be use neither with another `apex_*` method nor `apex_Point` as it will change the height calculated by those methods as well**
@@ -159,7 +159,7 @@ Define the top height of the parabola (vertex) with a distance. It is **NOT** th
 
 ---
 
-### `.apex_Height_Alt(x pos, y pos)` → *struct*
+### `.apex_Height_Alt([x pos], [y pos])` → *struct*
 Define the top height of the parabola (vertex) with a ratio. Isometric mode isn't supported yet.
 
 !> **Shouldn't be use neither with another `apex_*` method nor `apex_Point` as it will change the height calculated by those methods as well**
@@ -180,7 +180,7 @@ Define the top height of the parabola (vertex) with a coordinate. It is **NOT** 
 
 **Returns:** self
 
-### `.curve_Length(precision)` → *ngth*
+### `.curve_Length([precision])` → *ngth*
 Calculate the parabola's length (this is a slow method).
 
 ?> I discourage using it each steps
@@ -189,7 +189,7 @@ Calculate the parabola's length (this is a slow method).
 |-----------|-----------|---------|
 |`[_precision]=100` |real |the precision of the calculation. a higher value means a better precision but at a cost of performance. |
 
-### `.curve_Length_Ext(method, precision)` → *real*
+### `.curve_Length_Ext([method], [precision])` → *real*
 Calculate the parabola's length using different approaches.
 - 0: Approximation by summing segments.
 - 1: Numerical integration (Simpson's Rule).
@@ -219,8 +219,8 @@ Set the internal point's `x` and `y` on the parabola.
 |-----------|-----------|---------|
 |`_position` |real |the position on the parabola. Between 0 (start point) and 1 (end point). A negative value is before the start point and a value superior to 1 is after the end point. |
 
-### `.anchor_Motion([_on_end])` → {rv}
-Update the tracking point's coordinate on the parabola. This method is to be call each frame to be fully exploited.
+### `.anchor_Motion([_on_end])` → *struct*
+Update the anchor's coordinate on the parabola. This method is to be call each frame to be fully exploited.
 
 | Parameter | Datatype  | Purpose |
 |-----------|-----------|---------|
@@ -331,16 +331,96 @@ Update the tracking point's coordinate on the parabola. This method is to be cal
 
 
 
-### `.anchor_Rotate()` → {rv}
+### `.anchor_Rotate()` → *struct*
 Rotate the point. Should be called in the step event.
 
 ---
 
-### `.anchor_Orient()` → {rv}
+### `.anchor_Orient()` → *real*
 set the angle of the anchor point to the tangent of the parabola at its current position.
 This method updates the angle based on the motion ratio (position), ensuring the tracker maintains a natural orientation along the parabola.
 
 ---
 
-### `.anchor_Speed(_speed, [_motion_unit])` → {rv}
-the speed of the tracking point on the parabola (from the starting point to the ending point). it can be a Time, a Ratio or Steps. The method also calculate a basic rotation_rate
+### `.anchor_Speed(_speed, [_motion_unit])` → *real*
+the speed of the tracking point on the parabola (from the starting point to the ending point). it can be a Time, a Ratio or Steps.
+The method also calculate a basic rotation_rate.
+
+### `.rotation([_speed], [_cycle_amount], [_force_cycle])` → *bool*
+calculate and set a rotation rate, and a behaviour for the rotation of the anchor point
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`[_speed]=rotation_rate` |real |the rotation speed. By default, it use the rotation rate calculated by the method `anchor_Speed` |
+|`_cycles_amount` |real |the number of complete rotations (cycle) (-1: illimited, 0: no rotation (equal to speed = 0), 1..n: complet rotations) |
+|`_force_cycle` |bool |force the anchor to sync the amount of cycle (complete rotation) to the arrival on the end point. |
+
+**Returns:** self
+
+### `.anchor_On_End(_callback, [_args])` → {rv}
+Set a callback when the anchor reaches the end point.
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`the` |allback |callback to fire |
+|`arguments` |args] |for the callback. |
+
+**Returns:** self
+
+## Point
+	 The following method allows to find or check the coordinate or orientation of any point on the curve.
+	 >? You can completely use that instead of or in parallel with the Anchor if you want. 
+
+### `.point_Get_X(_position)` → {rv}
+Get the x coordinate of a point on the prabola, at the given position.
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`_position` |real |the position on the parabola. Between 0 (start point) and 1 (end point). A negative value is before the start point and a value superior to 1 is after the end point. |
+
+**Returns:** the point's `x` value in the room
+
+### `.point_Get_Y(_position)` → {rv}
+Get the `y` value of a point on the parabola at the given `position`
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`_position` |real |the position on the parabola. Between 0 (start point) and 1 (end point). A negative value is before the start point and a value superior to 1 is after the end point. |
+
+**Returns:** the point's `y` value in the room
+
+### `.point_Get_Orientation(_position)` → {rv}
+return the angle of a point to the tangent of the parabola at its current position.
+This method return the angle based on a position, ensuring the point maintains a natural orientation along the parabola.
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`_position` |real |the position on the parabola. Between 0 (start point) and 1 (end point). A negative value is before the start point and a value superior to 1 is after the end point. |
+
+
+
+
+### `.point_Is_At(_position, [_single_frame])` → {rv}
+Return true when the position is reached.
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`_position` |real |the position on the parabola. Between 0 (start point) and 1 (end point). A negative value is before the start point and a value superior to 1 is after the end point. |
+|`[_single_frame]=true` |bool |return `true` __only__ when on the single frame (true) when the position is reached (then turn back to `false`) |
+
+
+
+
+
+
+
+
+### `.point_Is_At_Checkpoint(_index, [_single_frame])` → {rv}
+Like `motion_Is_At` but check the position of a Checkpoint instead
+
+| Parameter | Datatype  | Purpose |
+|-----------|-----------|---------|
+|`_index` |real |the index of the checkpoint in the checkpoints array to check |
+|`_single_frame` |bool |only on the frame it turns true |
+
+**Returns:** true or false
