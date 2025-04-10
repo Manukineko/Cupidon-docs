@@ -369,7 +369,7 @@ Set a callback when the anchor reaches the end point.
 
 ## Point
 	 The following method allows to find or check the coordinate or orientation of any point on the curve.
-	 >? You can completely use that instead of or in parallel with the Anchor if you want. 
+	 ?> You can completely use that instead of or in parallel with the Anchor if you want. 
 
 ### `.point_Get_X(_position)` → {rv}
 Get the x coordinate of a point on the prabola, at the given position.
