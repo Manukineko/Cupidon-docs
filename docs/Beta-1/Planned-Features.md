@@ -13,6 +13,7 @@ This is a list of feature I'd like to implement in Cupidon.
 - [ ] add_Checkpoint return the checkpoint index.
 - [ ] `edit_Checkpoint`
 - [ ] `sort_Checkpoint`
+- [ ] Rotation direction.
 
 **LATER**
 - [ ] Sequence of Parabolas
