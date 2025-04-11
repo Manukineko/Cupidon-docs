@@ -8,7 +8,7 @@ Download the lastest version <a href = "https://github.com/manukineko/Cupidon/re
 <div class="tip">
   <p>Cupidon is quite usable but still in very Beta, with probable bugs and a lot of typos as I have yet :</p>
   <ul>
-  <li>extendly tested it in context in my own game project</li>
+  <li>intensively tested it in context in my own game project</li>
   <li>find a way to switch my brain to english when you are an old french guy living in Japan.</li>
   </ul>
   <p>I am also all hears about methods and features naming or logic improvements as I'm also yet :</p>
