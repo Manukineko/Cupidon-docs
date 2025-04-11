@@ -384,6 +384,7 @@ Set a callback when the anchor reaches the end point.
 |-----------|-----------|---------|
 |`the` |allback |callback to fire |
 |`arguments` |args] |for the callback. |
+|`auto` |auto_pause]=false |pause the Anchor when it reach the end point. |
 
 **Returns:** self
 
