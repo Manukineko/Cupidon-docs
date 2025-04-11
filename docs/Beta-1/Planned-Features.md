@@ -1,7 +1,7 @@
 # Planned Features
 
 
-## TO-DO
+## Features
 This is a list of feature I'd like to implement in Cupidon.
 
 **SOON** (but "time", you know ...) :
@@ -17,6 +17,11 @@ This is a list of feature I'd like to implement in Cupidon.
 **LATER**
 - [ ] Sequence of Parabolas
 - [ ] draw parabola and checkpoint with sprite.
+
+## TO DO
+**IMPROVMENTS**
+- [ ] Better way to remove an Animation Curve than setting `motion_Set_AnimeCurve` to `undefined`
+- [ ] manage Orientation internally as well.
 
 
 
