@@ -576,7 +576,7 @@ Stop the tracking point. it will goes back to the start of the parabola.
 
 
 ### `.motion_Resume()` → {rv}
-Resume the tracking point (from the pause state).
+Resume the Anchor motion (from the pause state).
 
 
 ---
@@ -596,7 +596,7 @@ Set an Animation Curves to be use as the position on the parabola
 
 | Parameter | Datatype  | Purpose |
 |-----------|-----------|---------|
-|`_animcurve` |Asset.GMAnimCurve |theAnimation Curve to use |
+|`Constant.Undefined}` |sset.GMAnimCurve, |_animcurve theAnimation Curve to use |
 
 
 
