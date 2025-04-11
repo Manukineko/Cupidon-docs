@@ -79,6 +79,7 @@ It also has methods to update the anchor position and rotation along the Parabol
 
 
 
+
 ## Parabola
 The methods that will set the parabola parameters.
 
@@ -395,6 +396,9 @@ The main method. it update the anchor's coordinate on the parabola, but also ist
 | Parameter | Datatype  | Purpose |
 |-----------|-----------|---------|
 |`[_on_end]=false` |bool |Trigger the callback when the end of the parabola is reached. |
+
+
+
 
 
 
