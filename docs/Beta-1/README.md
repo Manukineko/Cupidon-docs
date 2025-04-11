@@ -1,7 +1,7 @@
 <h1 align = "center"> cUpido∩ </h1>
 <p align = "center">
 <!--img src = "https://i.imgur.com/m255R2h.png" /> <br-->
-A small library to create trajectories with Quadratic Bezier Curves that loves you.<br><br>
+A small library to create trajectories for objects with Quadratic Bezier Curves that loves you.<br><br>
 Download the lastest version <a href = "https://github.com/manukineko/Cupidon/releases">here</a>
 </p>
 
