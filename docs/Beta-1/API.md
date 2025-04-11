@@ -80,8 +80,11 @@ It also has methods to update the anchor position and rotation along the Parabol
 
 
 
+
 ## Parabola
 The methods that will set the parabola parameters.
+The default use case is to have those called in the create event or on an event (mouse click, jump) to set the curve once.  
+However, you could also call them each steps to update your Parabola in-real time (eg: trajetory of an arrow based on a power, etc)
 
 it just needs a start point, an end point and a control point to have a functioning parabola, but several other alternatives methods are available, especially to define an end point base on distance or to directly set the [vertex](#) position of the curve
 
@@ -301,6 +304,8 @@ They are automatically updated when calling `anchor_Motion` and you retrieve tho
 ### Setters
 
 Methods that will set several parameters use by the Updaters methods to update the Anchor.
+Those are to be called in the create event or on an event once.
+
 
 ---
 
@@ -320,7 +325,6 @@ Set the anchor's coordinate `x` and `y` at the given poisiton on the parabola.
 
 ### `.anchor_Speed(_speed, [_motion_unit])` → *lf*
 the speed of the tracking point on the parabola (from the starting point to the ending point). it can be a Time, a Ratio or Steps.
-The method also calculate a basic rotation_rate.
 
 | Parameter | Datatype  | Purpose |
 |-----------|-----------|---------|
@@ -357,13 +361,13 @@ The method also calculate a basic rotation_rate.
 
 
 ### `.anchor_Rotation([_speed], [_cycle_amount], [_force_cycle])` → *struct*
-calculate and set a rotation rate, and a behaviour for the rotation of the anchor point
+Calculate and set a rotation rate, and a behaviour for the rotation of the anchor point. Need to be called somewhere if rotation are handle internally.
 
 | Parameter | Datatype  | Purpose |
 |-----------|-----------|---------|
-|`[_speed]=rotation_rate` |real |the rotation speed as an angle. By default, it use the rotation rate calculated by the method `anchor_Speed` |
+|`[_speed]=rotation_rate_default` |real |the rotation speed as an angle. By default, it use a rotation rate calculated for one full rotation per second |
 |`_cycles_amount` |real |the number of complete rotations (cycle) (-1: illimited, 0: no rotation (equal to speed = 0), 1..n: complet rotations) |
-|`_force_cycle` |bool |force the anchor to sync the amount of cycle (complete rotation) to the arrival on the end point. |
+|`_force_cycle` |bool |force the anchor to sync the amount of cycle (complete rotation) to the arrival on the end point. It will completely bypass the `_speed` if `cycle_amount` is above `0`. |
 
 **Returns:** self
 
@@ -384,7 +388,7 @@ Set a callback when the anchor reaches the end point.
 
 ### Updaters
 
-Methods that should be call each steps. They update the Anchor's transforms.
+Methods that update the Anchor's transforms. They should be call each steps.
 
 ---
 
@@ -511,7 +515,8 @@ The main method. it update the anchor's coordinate on the parabola, but also ist
 
 
 ### `.anchor_Rotate()` → {rv}
-Rotate the point. Need to be called each steps if `motion_Internal_Transform` is `false`.
+Rotate the Anchor. Need to be called each steps if rotation are handle externally and is bypassed if handle internally.
+If `anchor_Rotation` isn't called upstream, the method assumes that the Anchor point want to be rotated and thus, will force a default rotation rate of one cycle per second.
 
 !> **This method can't be use with `anchor_Orient` as both will fight to update the `angle` variable.**
 
@@ -522,7 +527,7 @@ Rotate the point. Need to be called each steps if `motion_Internal_Transform` is
 
 ### `.anchor_Orient()` → {rv}
 set the angle of the anchor point to the tangent of the parabola at its current position.
-This method updates the angle based on the motion ratio (position), ensuring the tracker maintains a natural orientation along the parabola.
+This method updates the angle based on the motion ratio (position), ensuring the Anchor maintains a natural orientation along the parabola.
 Need to be called each steps if `motion_Internal_Transform` is `false`.
 
 !>	**This method can't be use with `anchor_Rotate` as both will fight to update the `angle` variable.**
@@ -615,7 +620,7 @@ Set an Animation Curves to be use as the position on the parabola
 
 ### `.motion_Internal_Transforms(_internal)` → {rv}
 Set the global behaviour for handling the anchor transformation rotate and scale.
-It manages if those transformations should be handle internally by the `anchor_Motion` method or with their dedicated methods (eg: `anchor_Rotate`)
+It manages if those transformations should be handle internally by the `anchor_Motion` method or with their dedicated methods (eg: `anchor_Rotate`).
 
 ?> `anchor_Scale` is a **planned feature**.
 
