@@ -8,3 +8,9 @@
 
 ---
 
+**Roadmap**
+
+-    [Planned Features](Planned-Features)
+
+---
+
