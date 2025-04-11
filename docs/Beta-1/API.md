@@ -361,7 +361,7 @@ calculate and set a rotation rate, and a behaviour for the rotation of the ancho
 
 | Parameter | Datatype  | Purpose |
 |-----------|-----------|---------|
-|`[_speed]=rotation_rate` |real |the rotation speed. By default, it use the rotation rate calculated by the method `anchor_Speed` |
+|`[_speed]=rotation_rate` |real |the rotation speed as an angle. By default, it use the rotation rate calculated by the method `anchor_Speed` |
 |`_cycles_amount` |real |the number of complete rotations (cycle) (-1: illimited, 0: no rotation (equal to speed = 0), 1..n: complet rotations) |
 |`_force_cycle` |bool |force the anchor to sync the amount of cycle (complete rotation) to the arrival on the end point. |
 
